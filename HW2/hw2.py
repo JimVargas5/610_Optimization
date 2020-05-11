@@ -2,10 +2,12 @@
 # MTH 610
 # HW 2
 
+
 import numpy as np
+from tabulate import tabulate
 from matplotlib import pyplot as plt
 from matplotlib.backends.backend_pdf import PdfPages
-pdf=PdfPages('JimVargas_610_hw2.pdf')
+pdf=PdfPages('JimVargas_610_hw2_graphs.pdf')
 
 
 Beta=0.4
@@ -92,18 +94,48 @@ plt.close()
 pdf.savefig(fig_params)
 
 
-# Part B ##################################################################
+
+# Part B #######################################################################
 dBeta=0.1*Beta
-# dGamma=0
+dGamma=0.1*Gamma
+
+dI_Beta=dBeta*dXdu_storage[:,1,0]
+dI_Gamma=dGamma*dXdu_storage[:,1,0]
+
+J=(h/100)*np.sum(X_storage[:,1])
+
+tempSum=(h/100)*np.sum(dXdu_storage[:,1,0])
+dJ_Beta=dBeta*tempSum
+dJ_Gamma=dGamma*tempSum
 
 
+# plots and table
+fig_apriori_dI_Beta=plt.figure()
+plt.title("A priori estimated Impact of +/- dBeta on I\n"+
+    "Beta="+str(Beta)+", dBeta="+str(dBeta))
+plt.plot(t, X_storage[:,1], label="I(t_k)")
+plt.plot(t, X_storage[:,1] + dI_Beta[:], label="I+dI")
+plt.plot(t, X_storage[:,1] - dI_Beta[:], label="I-dI")
+plt.legend(loc='best')
+plt.close()
+pdf.savefig(fig_apriori_dI_Beta)
 
-
-
-
-
+fig_apriori_dI_Gamma=plt.figure()
+plt.title("A priori estimated Impact of +/- dGamma on I\n"+
+    "Gamma="+str(Gamma)+", dGamma="+str(dGamma))
+plt.plot(t, X_storage[:,1], label="I(t_k)")
+plt.plot(t, X_storage[:,1] + dI_Gamma[:], label="I+dI")
+plt.plot(t, X_storage[:,1] - dI_Gamma[:], label="I-dI")
+plt.legend(loc='best')
+plt.close()
+pdf.savefig(fig_apriori_dI_Gamma)
 
 
 pdf.close()
 
-
+Table=[
+    ["Beta",Beta],["Gamma",Gamma],["+/- dBeta",dBeta],["+/- dGamma",dGamma],
+    ["J",J],["+/- dJ, from dBeta",dJ_Beta],["+/- dJ, from dGamma",dJ_Gamma]
+]
+with open("JimVargas_610_hw2.txt", 'w') as output:
+    print(tabulate(Table), file=output)

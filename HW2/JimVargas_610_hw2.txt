@@ -1,0 +1,19 @@
+-------------------  ---------
+Beta                   0.4
+Gamma                  0.04
++/- dBeta              0.04
++/- dGamma             0.004
+J                    240.99
++/- dJ, from dBeta     0.7361
++/- dJ, from dGamma    0.07361
+-------------------  ---------
+
+I don't exactly understand how I'm supposed to use
+which numbers for the last parts of Part B.
+
+J is calculated using the quadrature model provided
+with I_k from Part A.
+
+Both dJ's are calulated using the same quadrature
+model, just for the integral from of dJ with
+[dI/dBeta]_k also from Part A.
