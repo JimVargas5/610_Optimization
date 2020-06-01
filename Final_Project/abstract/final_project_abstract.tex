@@ -1,0 +1,36 @@
+%Jim Vargas
+
+\documentclass[12]{article}
+
+\usepackage[margin=1in]{geometry}
+\usepackage{setspace}
+\usepackage{graphicx}
+\usepackage{verbatim}
+\usepackage{amsmath, amsfonts, amssymb}
+\usepackage{dsfont}
+\usepackage[none]{hyphenat}
+\usepackage{float}
+
+\begin{document}
+\begin{center}
+\textbf{Final Project Abstract}\\
+MTH 610\\
+Jim Vargas\\
+\end{center}
+
+The aim of this project is to compare two methods of obtaining solutions to Lorenz '63 model differential equation system
+\begin{align*}
+x'(t) &= \sigma (y-x) \\
+y'(t) &= \rho x - y -xz \\
+z'(t) &= xy - \beta z,
+\end{align*}
+where I will denote $\mathbf{X}(t) =[x(t),y(t),z(t)]^\top$ to represent a solution to the system compactly. I will start by computing a numerical solution using a 4th order Runge-Kutta Method (RK4) with 10,000 time steps. Afterwards, I will treat the RK4 solution as the "true state" and sample points of this solution at every tenth time step, with which I will use as 'observational data' to compute another numerical solution to the Lorenz model using an extended Kalman filter (EKF) on a sparser time scale (1,000 time steps). I will use the EKF method three times, changing how I create observations. These observations will be taken as
+\begin{align*}
+\mathbf{y}=\mathbf{Hx}+\varepsilon_0
+\end{align*}
+where $\mathbf{y}\in \mathds{R}^m$, $m=3,2,1$ in cases 1, 2, and 3 respectively, and $\varepsilon_0 \in \mathds{R}^m$ is a random vector of observational errors. In the first case ($m=3$), $\mathbf{H} \in \mathds{R}^{3\times 3}$ will observe all three components of $\mathbf{X}$; in the second, $\mathbf{H}\in \mathds{R}^{2\times3}$ will observe the first two only; in the third, $\mathbf{H}\in \mathds{R}^{1\times 3}$ will observe the first only. Finally, I will compare each of these three EKF solutions to the RK4 solution of the Lorenz model.
+
+
+\end{document}
+
+
